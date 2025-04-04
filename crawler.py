@@ -63,8 +63,8 @@ def torrent_to_magnet(torrent_url):
         logging.error(f"Failed to convert {torrent_url} to magnet: {e}")
         return "N/A"
 
-def crawl_detail_page(detail_url, page_number, index):
-    """爬取详细页面并提取种子链接"""
+def crawl_detail_page(detail_url, page_number, index, retries=0):
+    """爬取详细页面并提取种子链接，带重试机制"""
     try:
         response = requests.get(detail_url, headers=headers, timeout=10)
         response.raise_for_status()
@@ -88,8 +88,13 @@ def crawl_detail_page(detail_url, page_number, index):
 
     except requests.RequestException as e:
         logging.error(f"Error fetching detail page {detail_url}: {e}")
-        time.sleep(RETRY_DELAY)
-        return {"page_number": page_number, "title": "N/A", "torrent_link": "N/A", "magnet_link": "N/A", "index": index}
+        if retries < MAX_RETRIES:
+            logging.info(f"Retrying {detail_url} ({retries + 1}/{MAX_RETRIES}) after {RETRY_DELAY} seconds...")
+            time.sleep(RETRY_DELAY)
+            return crawl_detail_page(detail_url, page_number, index, retries + 1)
+        else:
+            logging.error(f"Max retries ({MAX_RETRIES}) reached for {detail_url}. Giving up.")
+            return {"page_number": page_number, "title": "N/A", "torrent_link": "N/A", "magnet_link": "N/A", "index": index}
 
 def crawl_page(page_number):
     """爬取单个页面"""
