@@ -38,8 +38,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --global user.email "your-email@example.com"
-        git config --global user.name "your-username"
+        git config --global user.email "hhsw2015@gmail.com"
+        git config --global user.name "hhsw2015"
         git add pornrips_data.csv
         git commit -m "Update crawled data" || echo "No changes to commit"
         git push
