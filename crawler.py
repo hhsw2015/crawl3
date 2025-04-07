@@ -37,7 +37,7 @@ def git_commit(message):
     try:
         # 配置 Git 身份
         subprocess.run(["git", "config", "--global", "user.email", "hhsw2015@gmail.com"], check=True)
-        subprocess.run(["git", "config", "--global", "user.name", "hhsw2015e"], check=True)
+        subprocess.run(["git", "config", "--global", "user.name", "hhsw2015"], check=True)
 
         subprocess.run(["git", "add", csv_file], check=True)
         result = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
