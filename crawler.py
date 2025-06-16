@@ -17,7 +17,7 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 }
 
-csv_file = "pornrips_data.csv"
+csv_file = "pornrips_data_2.csv"
 MAX_RETRIES = 3
 RETRY_DELAY = 5
 COMMIT_INTERVAL = 500  # 每 500 条提交一次
